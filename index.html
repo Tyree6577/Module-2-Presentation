@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Empire, Education & Victorian Power</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    /* Primary */
+    --navy:          #1b2a4a;
+    --navy-deep:     #111d35;
+    --navy-mid:      #243560;
+    --navy-light:    #2e4478;
+
+    /* Background */
+    --parchment:     #f5e6c8;
+    --parchment-mid: #eddbb0;
+    --parchment-dark:#e0c98a;
+    --cream:         #fdf6e3;
+
+    /* Accent */
+    --crimson:       #9b1c2e;
+    --crimson-deep:  #6e1220;
+    --crimson-light: #c0283e;
+    --crimson-muted: rgba(155,28,46,0.12);
+
+    /* Supporting */
+    --ink:           #1a0f00;
+    --body-text:     #2c1f0e;
+    --muted:         #5a4a38;
+    --smoke:         #d8c9a8;
+    --white:         #ffffff;
+    --border:        #e0d0b0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--body-text);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.9rem 3rem;
+    background: var(--navy-deep);
+    border-bottom: 2px solid var(--crimson);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.35);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700;
+    color: var(--parchment); letter-spacing: 0.08em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--smoke); text-decoration: none; font-size: 0.8rem;
+    font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--parchment); }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 7rem 2rem 5rem; position: relative; overflow: hidden;
+    background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 50%, #1f1830 100%);
+  }
+
+  /* Subtle radial glows */
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 50%, rgba(155,28,46,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 40%, rgba(245,230,200,0.07) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  /* Decorative ring lines */
+  .hero-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(245,230,200,0.08);
+    pointer-events: none; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  }
+  .ring-1 { width: 72vmin; height: 72vmin; }
+  .ring-2 { width: 52vmin; height: 52vmin; border-color: rgba(155,28,46,0.12); }
+  .ring-3 { width: 32vmin; height: 32vmin; border-color: rgba(245,230,200,0.06); }
+
+  /* Crimson left-edge bar */
+  #hero::after {
+    content: '';
+    position: absolute; left: 0; top: 15%; bottom: 15%;
+    width: 3px;
+    background: linear-gradient(to bottom, transparent, var(--crimson), transparent);
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--crimson-muted); border: 1px solid rgba(155,28,46,0.4);
+    color: #e07080; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase;
+    padding: 0.38rem 1.3rem; border-radius: 2px; margin-bottom: 1.8rem;
+    animation: fadeUp 0.9s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5.8rem);
+    font-weight: 900; line-height: 1.06; color: var(--parchment); margin-bottom: 1.5rem;
+    animation: fadeUp 0.9s 0.15s ease both;
+  }
+  .hero-title em { font-style: italic; color: #e8c47a; }
+  .hero-subtitle {
+    max-width: 580px; color: var(--smoke); font-size: 1.1rem; margin-bottom: 3rem;
+    animation: fadeUp 0.9s 0.3s ease both;
+  }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.9s 0.45s ease both; }
+
+  .btn {
+    padding: 0.78rem 2.2rem; border-radius: 3px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer; transition: all 0.25s;
+    border: 2px solid transparent; display: inline-block;
+  }
+  .btn-crimson { background: var(--crimson); color: var(--parchment); border-color: var(--crimson); }
+  .btn-crimson:hover { background: var(--crimson-light); border-color: var(--crimson-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(155,28,46,0.4); }
+  .btn-outline { background: transparent; border-color: rgba(245,230,200,0.35); color: var(--parchment); }
+  .btn-outline:hover { border-color: var(--parchment); transform: translateY(-2px); }
+
+  .scroll-indicator {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(245,230,200,0.3); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    animation: fadeUp 0.9s 0.9s ease both;
+  }
+  .scroll-line { width: 1px; height: 36px; background: linear-gradient(to bottom, rgba(245,230,200,0.4), transparent); animation: scrollPulse 2s infinite; }
+
+  /* ===== SHARED ===== */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.35em;
+    text-transform: uppercase; color: var(--crimson); background: var(--crimson-muted);
+    padding: 0.28rem 0.85rem; border-radius: 2px; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4vw, 3rem);
+    font-weight: 700; line-height: 1.15; color: var(--navy-deep); margin-bottom: 1rem;
+  }
+  .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--crimson), var(--navy)); border-radius: 3px; margin-bottom: 2.5rem; }
+
+  /* ===== CONTEXT ===== */
+  #context { background: var(--parchment); }
+  .context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .context-text p { color: var(--body-text); margin-bottom: 1.1rem; }
+
+  .context-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .stat-card {
+    padding: 1.7rem; border-radius: 4px;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(0,0,0,0.15); }
+
+  .stat-card:nth-child(1) { background: var(--navy);      color: var(--parchment); }
+  .stat-card:nth-child(1)::before { background: linear-gradient(90deg, var(--crimson), #e04060); }
+
+  .stat-card:nth-child(2) { background: var(--crimson);   color: var(--parchment); }
+  .stat-card:nth-child(2)::before { background: linear-gradient(90deg, #e8c47a, #c0a050); }
+
+  .stat-card:nth-child(3) { background: var(--navy-deep); color: var(--parchment); }
+  .stat-card:nth-child(3)::before { background: linear-gradient(90deg, var(--parchment-dark), var(--crimson)); }
+
+  .stat-card:nth-child(4) { background: var(--crimson-deep); color: var(--parchment); }
+  .stat-card:nth-child(4)::before { background: linear-gradient(90deg, #e8c47a, var(--navy-light)); }
+
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; display: block; }
+  .stat-label { font-size: 0.8rem; font-weight: 600; opacity: 0.85; margin-top: 0.2rem; }
+
+  /* ===== WRITERS ===== */
+  #readers { background: var(--cream); }
+  .voices-intro { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; margin-bottom: 3rem; align-items: start; }
+  .voices-quote {
+    font-family: 'Playfair Display', serif; font-size: 1.15rem; font-style: italic;
+    color: var(--navy); padding: 1.5rem 1.8rem;
+    background: var(--parchment); border-left: 4px solid var(--crimson);
+    border-radius: 0 4px 4px 0; line-height: 1.6;
+  }
+  .voices-desc { color: var(--body-text); padding-top: 0.3rem; }
+
+  .writers-tabs { display: flex; gap: 0.6rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .tab-btn {
+    padding: 0.42rem 1.15rem; border-radius: 2px; border: 1px solid var(--border);
+    background: var(--white); color: var(--muted); font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.22s; letter-spacing: 0.06em;
+  }
+  .tab-btn.active, .tab-btn:hover { border-color: var(--navy); color: var(--navy); background: rgba(27,42,74,0.06); }
+
+  .writers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.3rem; }
+  .writer-card {
+    background: var(--white); border-radius: 4px; padding: 1.8rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 8px rgba(27,42,74,0.06);
+    transition: all 0.28s; position: relative; overflow: hidden;
+  }
+  .writer-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .writer-card[data-cat="defender"]::before { background: linear-gradient(90deg, var(--crimson), var(--crimson-light)); }
+  .writer-card[data-cat="critic"]::before   { background: linear-gradient(90deg, var(--navy), var(--navy-light)); }
+  .writer-card[data-cat="poet"]::before     { background: linear-gradient(90deg, #7a5c20, #c0a050); }
+  .writer-card[data-cat="educator"]::before { background: linear-gradient(90deg, #2a5a3a, #3a8a5a); }
+  .writer-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(27,42,74,0.12); border-color: var(--parchment-dark); }
+
+  .writer-stance { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.22rem 0.65rem; border-radius: 2px; display: inline-block; margin-bottom: 0.9rem; }
+  .stance-defender { background: rgba(155,28,46,0.1);  color: var(--crimson); }
+  .stance-critic   { background: rgba(27,42,74,0.1);   color: var(--navy); }
+  .stance-poet     { background: rgba(122,92,32,0.1);  color: #7a5c20; }
+  .stance-educator { background: rgba(42,90,58,0.1);   color: #2a5a3a; }
+
+  .writer-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--navy-deep); margin-bottom: 0.25rem; }
+  .writer-work { font-style: italic; color: var(--crimson); font-size: 0.87rem; margin-bottom: 0.7rem; }
+  .writer-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.55; }
+  .hidden { display: none !important; }
+
+  /* ===== REACTIONS ===== */
+  #reactions { background: var(--navy-deep); }
+  #reactions .section-label { background: rgba(155,28,46,0.25); color: #e07080; }
+  #reactions .section-title { color: var(--parchment); }
+
+  .reactions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 1.4rem; margin-top: 2.5rem; }
+  .reaction-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(245,230,200,0.12);
+    border-radius: 4px; padding: 2rem 1.8rem; transition: background 0.3s, transform 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .reaction-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--crimson), transparent);
+    transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+  }
+  .reaction-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-3px); }
+  .reaction-card:hover::before { transform: scaleX(1); }
+
+  .reaction-name { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #e8c47a; margin-bottom: 0.5rem; }
+  .reaction-emotion { font-size: 2rem; display: block; margin-bottom: 0.8rem; }
+  .reaction-text { color: var(--smoke); font-size: 0.93rem; line-height: 1.65; }
+  .reaction-text strong { color: var(--parchment); }
+
+  /* ===== ANALYSIS ===== */
+  #analysis { background: var(--parchment); }
+  #analysis .section-title { color: var(--navy-deep); }
+
+  .analysis-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .genre-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+  .genre-item {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    padding: 1.15rem 1.4rem; border-radius: 3px;
+    background: rgba(255,255,255,0.6); border: 1px solid var(--border);
+    transition: border-color 0.25s, transform 0.25s, background 0.25s;
+  }
+  .genre-item:hover { border-color: var(--navy); background: var(--white); transform: translateX(4px); }
+  .genre-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .genre-name { font-weight: 700; color: var(--navy-deep); margin-bottom: 0.2rem; font-size: 0.95rem; }
+  .genre-desc { color: var(--muted); font-size: 0.87rem; line-height: 1.5; }
+
+  .quote-block {
+    margin: 1.4rem 0; padding: 1.5rem 1.8rem; border-radius: 3px;
+    background: var(--navy); border-left: 3px solid var(--crimson);
+    font-family: 'Playfair Display', serif; font-style: italic;
+    color: var(--parchment); font-size: 1.05rem; line-height: 1.65;
+  }
+  .quote-block cite { display: block; margin-top: 0.7rem; font-size: 0.76rem; font-style: normal; color: #e07080; font-weight: 600; letter-spacing: 0.06em; }
+
+  /* ===== ACTIVITIES ===== */
+  #activities { background: var(--cream); }
+  .activity-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .activity-card {
+    border-radius: 4px; overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 16px rgba(27,42,74,0.08); transition: transform 0.3s, box-shadow 0.3s; background: var(--white);
+  }
+  .activity-card:hover { transform: translateY(-5px); box-shadow: 0 14px 40px rgba(27,42,74,0.15); }
+
+  .activity-header { padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .activity-card:nth-child(1) .activity-header { background: linear-gradient(135deg, var(--navy-deep), var(--navy-mid)); }
+  .activity-card:nth-child(2) .activity-header { background: linear-gradient(135deg, var(--crimson-deep), var(--crimson)); }
+
+  .activity-header h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--parchment); font-weight: 700; line-height: 1.3; }
+  .activity-badge {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    background: rgba(255,255,255,0.18); color: var(--parchment); padding: 0.22rem 0.65rem; border-radius: 2px; white-space: nowrap; margin-left: 1rem;
+  }
+  .activity-body { padding: 2rem; }
+  .activity-body p { color: var(--body-text); margin-bottom: 1.1rem; font-size: 0.96rem; }
+  .activity-step { display: flex; gap: 1rem; margin-bottom: 0.9rem; align-items: flex-start; }
+  .step-num {
+    width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; margin-top: 3px; color: var(--white);
+  }
+  .activity-card:nth-child(1) .step-num { background: var(--navy); }
+  .activity-card:nth-child(2) .step-num { background: var(--crimson); }
+  .step-text { color: var(--body-text); font-size: 0.92rem; }
+
+  /* ===== DEBATE ===== */
+  #debate { background: var(--parchment); }
+  #debate .section-title { color: var(--navy-deep); }
+
+  .debate-container { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 3rem; }
+  .side { border-radius: 4px; padding: 2.2rem; border: 1px solid; transition: transform 0.3s; }
+  .side:hover { transform: translateY(-4px); }
+
+  .side-empire {
+    background: linear-gradient(160deg, rgba(27,42,74,0.06), rgba(27,42,74,0.12));
+    border-color: rgba(27,42,74,0.25);
+  }
+  .side-resist {
+    background: linear-gradient(160deg, rgba(155,28,46,0.05), rgba(155,28,46,0.1));
+    border-color: rgba(155,28,46,0.25);
+  }
+
+  .side-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 0.6rem; display: block; }
+  .side-empire .side-label { color: var(--navy); }
+  .side-resist .side-label { color: var(--crimson); }
+  .side-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--navy-deep); margin-bottom: 1.4rem; }
+
+  .argument-item { display: flex; gap: 0.9rem; margin-bottom: 0.85rem; align-items: flex-start; }
+  .arg-dot { width: 7px; height: 7px; border-radius: 50%; margin-top: 0.58rem; flex-shrink: 0; }
+  .side-empire .arg-dot { background: var(--navy); }
+  .side-resist .arg-dot { background: var(--crimson); }
+  .arg-text { color: var(--body-text); font-size: 0.93rem; }
+
+  .debate-writers { font-size: 0.76rem; font-weight: 600; margin-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 1rem; }
+  .side-empire .debate-writers { color: var(--navy); }
+  .side-resist .debate-writers { color: var(--crimson); }
+
+  /* ===== CONNECTIONS ===== */
+  #connections { background: var(--cream); }
+  .connections-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.2rem; margin-top: 2.5rem; }
+  .connection-item {
+    background: var(--white); border-radius: 4px; padding: 1.5rem 1.2rem; text-align: center;
+    border: 1px solid var(--border); transition: all 0.28s; cursor: default;
+    position: relative; overflow: hidden;
+  }
+  .connection-item::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--navy), var(--crimson));
+    transform: scaleX(0); transition: transform 0.35s;
+  }
+  .connection-item:hover { border-color: var(--navy); transform: translateY(-4px); box-shadow: 0 10px 28px rgba(27,42,74,0.12); }
+  .connection-item:hover::after { transform: scaleX(1); }
+  .connection-icon { font-size: 2rem; margin-bottom: 0.7rem; display: block; }
+  .connection-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--navy-deep); font-weight: 700; margin-bottom: 0.4rem; }
+  .connection-rel { font-size: 0.78rem; color: var(--muted); line-height: 1.45; }
+
+  /* ===== CREDITS ===== */
+  #credits { background: var(--navy-deep); }
+  #credits .section-label { background: rgba(155,28,46,0.2); color: #e07080; }
+  #credits .section-title { color: var(--parchment); }
+  #credits .divider { background: linear-gradient(90deg, var(--crimson), var(--navy-light)); }
+
+  .credits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; }
+  .credits-section h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: #e8c47a; margin-bottom: 1rem; letter-spacing: 0.04em; }
+  .credits-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .credits-list li { color: rgba(245,230,200,0.5); font-size: 0.86rem; padding-left: 1rem; border-left: 2px solid rgba(155,28,46,0.4); font-style: italic; }
+  .credits-list .author { color: var(--parchment); font-style: normal; font-weight: 600; }
+  .footer-bottom { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(155,28,46,0.2); text-align: center; font-size: 0.78rem; color: rgba(245,230,200,0.25); letter-spacing: 0.12em; }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:none; } }
+  @keyframes scrollPulse { 0%,100% { opacity:0.3; } 50% { opacity:1; } }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .context-grid, .analysis-layout, .activity-cards, .debate-container, .credits-grid, .voices-intro { grid-template-columns: 1fr; gap: 2rem; }
+    section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Victorian Power</span>
+  <ul class="nav-links">
+    <li><a href="#context">Context</a></li>
+    <li><a href="#readers">Writers</a></li>
+    <li><a href="#reactions">Reactions</a></li>
+    <li><a href="#analysis">Analysis</a></li>
+    <li><a href="#activities">Activities</a></li>
+    <li><a href="#debate">Debate</a></li>
+    <li><a href="#credits">Credits</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-ring ring-1"></div>
+  <div class="hero-ring ring-2"></div>
+  <div class="hero-ring ring-3"></div>
+  <p class="hero-tag">📚 Module 2 — Group Presentation</p>
+  <h1 class="hero-title">Empire, <em>Education</em>,<br/>& Victorian Power</h1>
+  <p class="hero-subtitle">How Britain defined itself — and was fiercely challenged — through the writers, educators, and rebel voices of the 19th century.</p>
+  <div class="hero-cta">
+    <a href="#context" class="btn btn-crimson">Begin Exploring →</a>
+    <a href="#activities" class="btn btn-outline">Class Activities</a>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- CONTEXT -->
+<section id="context">
+  <div class="container">
+    <div class="context-grid reveal">
+      <div class="context-text">
+        <span class="section-label">Background</span>
+        <h2 class="section-title">A Nation Arguing<br/>With Itself</h2>
+        <div class="divider"></div>
+        <p>At the height of the 19th century, Britain controlled one-quarter of the world's land. Writers, politicians, and poets all reached for language to explain <em>why</em> — and whether it was right.</p>
+        <p>Some saw empire as a civilizing duty. Others tore that idea apart. Two battlegrounds dominated: <strong style="color:var(--navy)">Empire & National Identity</strong> and <strong style="color:var(--crimson)">Education in Victorian Britain</strong>.</p>
+        <p>These readings reveal how language shapes power — and how power can be resisted through language.</p>
+      </div>
+      <div class="context-stats">
+        <div class="stat-card reveal"><span class="stat-num">¼</span><span class="stat-label">Of the world under British control</span></div>
+        <div class="stat-card reveal"><span class="stat-num">20+</span><span class="stat-label">Writers from Britain, India, Caribbean & Ireland</span></div>
+        <div class="stat-card reveal"><span class="stat-num">1830s</span><span class="stat-label">To early 1900s — the span of our readings</span></div>
+        <div class="stat-card reveal"><span class="stat-num">2</span><span class="stat-label">Core themes: Empire and Education</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WRITERS -->
+<section id="readers">
+  <div class="container">
+    <span class="section-label">Whom Did You Read?</span>
+    <h2 class="section-title reveal">The Voices</h2>
+    <div class="divider"></div>
+    <div class="voices-intro reveal">
+      <p class="voices-quote">"Some voices justified empire. Some dismantled it. All reveal how ideas become power."</p>
+      <p class="voices-desc">Our readings span two categories — writers defending or critiquing <em>Empire</em>, and writers grappling with the purpose of <em>Education</em>. Filter below to explore each camp.</p>
+    </div>
+    <div class="writers-tabs">
+      <button class="tab-btn active" onclick="filterWriters('all',this)">All Writers</button>
+      <button class="tab-btn" onclick="filterWriters('defender',this)">🏛 Empire Defenders</button>
+      <button class="tab-btn" onclick="filterWriters('critic',this)">✊ Critics & Resistors</button>
+      <button class="tab-btn" onclick="filterWriters('poet',this)">🎵 Poets</button>
+      <button class="tab-btn" onclick="filterWriters('educator',this)">📖 Education</button>
+    </div>
+    <div class="writers-grid" id="writersGrid">
+      <div class="writer-card" data-cat="defender">
+        <span class="writer-stance stance-defender">Empire Defender</span>
+        <div class="writer-name">Thomas Babington Macaulay</div>
+        <div class="writer-work">Minute on Indian Education (1835)</div>
+        <p class="writer-desc">Argues for English education in India, claiming European knowledge is superior and proposing to create Indians "English in taste."</p>
+      </div>
+      <div class="writer-card" data-cat="defender">
+        <span class="writer-stance stance-defender">Empire Defender</span>
+        <div class="writer-name">James Anthony Froude</div>
+        <div class="writer-work">The English in the West Indies (1888)</div>
+        <p class="writer-desc">Defends British rule in the Caribbean, paternalistically arguing that formerly enslaved people are unfit for self-government.</p>
+      </div>
+      <div class="writer-card" data-cat="defender">
+        <span class="writer-stance stance-defender">Empire Defender</span>
+        <div class="writer-name">Joseph Chamberlain</div>
+        <div class="writer-work">The True Conception of Empire (1897)</div>
+        <p class="writer-desc">Defines imperialism as national duty, arguing empire strengthens Britain economically and morally.</p>
+      </div>
+      <div class="writer-card" data-cat="critic">
+        <span class="writer-stance stance-critic">Critic & Resistor</span>
+        <div class="writer-name">John Jacob Thomas</div>
+        <div class="writer-work">Froudacity (1889)</div>
+        <p class="writer-desc">Directly dismantles Froude's racial claims, defending Caribbean intellect and political rights with sharp, evidence-based rebuttal.</p>
+      </div>
+      <div class="writer-card" data-cat="critic">
+        <span class="writer-stance stance-critic">Critic & Resistor</span>
+        <div class="writer-name">J. A. Hobson</div>
+        <div class="writer-work">Imperialism: A Study (1902)</div>
+        <p class="writer-desc">Exposes empire as driven by capitalist elites pursuing profit — not national glory or moral duty.</p>
+      </div>
+      <div class="writer-card" data-cat="critic">
+        <span class="writer-stance stance-critic">Critic & Resistor</span>
+        <div class="writer-name">Fenian Movement</div>
+        <div class="writer-work">Proclamation of an Irish Republic (1867)</div>
+        <p class="writer-desc">Frames Britain as an occupying force and asserts Ireland's right to national self-determination.</p>
+      </div>
+      <div class="writer-card" data-cat="critic">
+        <span class="writer-stance stance-critic">Critic & Resistor</span>
+        <div class="writer-name">T. N. Mukharji</div>
+        <div class="writer-work">A Visit to Europe (1889)</div>
+        <p class="writer-desc">A colonized Indian subject observing British society — subtly exposing the gap between imperial self-image and reality.</p>
+      </div>
+      <div class="writer-card" data-cat="poet">
+        <span class="writer-stance stance-poet">Poet</span>
+        <div class="writer-name">Alfred, Lord Tennyson</div>
+        <div class="writer-work">Opening of the Indian and Colonial Exhibition (1886)</div>
+        <p class="writer-desc">Frames empire as shared glory under the Crown — celebratory, confident, and deeply ideological.</p>
+      </div>
+      <div class="writer-card" data-cat="poet">
+        <span class="writer-stance stance-poet">Poet</span>
+        <div class="writer-name">Sir Henry Newbolt</div>
+        <div class="writer-work">Vitai Lampada (1892)</div>
+        <p class="writer-desc">"Play up! play up! and play the game!" — links school cricket to battlefield courage. School as training for empire.</p>
+      </div>
+      <div class="writer-card" data-cat="poet">
+        <span class="writer-stance stance-poet">Poet</span>
+        <div class="writer-name">William Ernest Henley</div>
+        <div class="writer-work">Invictus (1888)</div>
+        <p class="writer-desc">Stoic self-mastery through iambic tetrameter. Personal on the surface, deeply imperial in its cultural resonance.</p>
+      </div>
+      <div class="writer-card" data-cat="educator">
+        <span class="writer-stance stance-educator">Education</span>
+        <div class="writer-name">Charles Dickens</div>
+        <div class="writer-work">Hard Times (1854)</div>
+        <p class="writer-desc">Attacks utilitarian fact-obsessed schooling. Mr. Gradgrind embodies a system that reduces children to data.</p>
+      </div>
+      <div class="writer-card" data-cat="educator">
+        <span class="writer-stance stance-educator">Education</span>
+        <div class="writer-name">Lewis Carroll</div>
+        <div class="writer-work">Alice's Adventures in Wonderland (1865)</div>
+        <p class="writer-desc">Parodies rigid adult logic and education — Wonderland as a world where institutional rules collapse into absurdity.</p>
+      </div>
+      <div class="writer-card" data-cat="educator">
+        <span class="writer-stance stance-educator">Education</span>
+        <div class="writer-name">Thomas Hardy</div>
+        <div class="writer-work">Jude the Obscure (1895)</div>
+        <p class="writer-desc">Jude's blocked academic dreams symbolize the brutal reality of class barriers in Victorian England.</p>
+      </div>
+      <div class="writer-card" data-cat="educator">
+        <span class="writer-stance stance-educator">Education</span>
+        <div class="writer-name">Frances Power Cobbe</div>
+        <div class="writer-work">The Education of Women (1868)</div>
+        <p class="writer-desc">Argues for expanded intellectual opportunity for women — a radical challenge to Victorian gender norms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REACTIONS -->
+<section id="reactions">
+  <div class="container">
+    <span class="section-label">First Reactions</span>
+    <h2 class="section-title reveal">Gut Responses<br/>— Then Rethinking</h2>
+    <div class="divider"></div>
+    <p class="reveal" style="color:var(--smoke); max-width:680px;">First impressions shifted as we read more carefully — which is exactly how ideology works.</p>
+    <div class="reactions-grid">
+      <div class="reaction-card reveal">
+        <div class="reaction-name">Tyree</div>
+        <div class="reaction-emotion">😤</div>
+        <p class="reaction-text"><strong>First:</strong> Anger at Macaulay and Froude. Their logic is a mask for erasure.<br/><br/><strong>After rereading:</strong> The anger remained — but so did a colder recognition of how <em>systematic</em> their reasoning is. That's how ideology hides itself.</p>
+      </div>
+      <div class="reaction-card reveal">
+        <div class="reaction-name">Group Member A</div>
+        <div class="reaction-emotion">😮</div>
+        <p class="reaction-text"><strong>First:</strong> Surprise at how openly Tennyson and Newbolt celebrate empire.<br/><br/><strong>After rereading:</strong> The poems feel less innocent, more programmatic. Vitai Lampada is training for war disguised as a cricket poem.</p>
+      </div>
+      <div class="reaction-card reveal">
+        <div class="reaction-name">Group Member B</div>
+        <div class="reaction-emotion">✊</div>
+        <p class="reaction-text"><strong>First:</strong> Admiration for Thomas and Hobson — their resistance feels bold.<br/><br/><strong>After rereading:</strong> Thomas's rebuttal is even more impressive — methodical, evidence-based, devastating.</p>
+      </div>
+      <div class="reaction-card reveal">
+        <div class="reaction-name">Group Member C</div>
+        <div class="reaction-emotion">🤔</div>
+        <p class="reaction-text"><strong>First:</strong> Dickens and Carroll seemed funny or exaggerated.<br/><br/><strong>After rereading:</strong> The critique of mechanized thinking is deadly serious. Gradgrind's "facts" is a warning about dehumanization.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANALYSIS -->
+<section id="analysis">
+  <div class="container">
+    <span class="section-label">Formal Aspects</span>
+    <h2 class="section-title reveal">How They Wrote —<br/>And Why It Matters</h2>
+    <div class="divider"></div>
+    <div class="analysis-layout reveal">
+      <div>
+        <p style="color:var(--body-text); margin-bottom:2rem;">Genre isn't decorative. The form each writer chose <em>is</em> part of the argument. Political prose, lyric poetry, realist fiction, parody — each mode carries a different kind of power.</p>
+        <ul class="genre-list">
+          <li class="genre-item"><span class="genre-icon">📜</span><div><div class="genre-name">Political Prose</div><div class="genre-desc">Macaulay & Chamberlain. Argument and definition — "useful knowledge," "national duty." Uses comparison to position European superiority as fact.</div></div></li>
+          <li class="genre-item"><span class="genre-icon">⚔️</span><div><div class="genre-name">Rebuttal & Counterexample</div><div class="genre-desc">Thomas vs. Froude. One argues by example; the other destroys each example systematically. A dialogue across decades.</div></div></li>
+          <li class="genre-item"><span class="genre-icon">🎵</span><div><div class="genre-name">Lyric Poetry</div><div class="genre-desc">Henley, Newbolt, Tennyson. Rhythm and repetition as emotional force. The body conditioned before the mind consents.</div></div></li>
+          <li class="genre-item"><span class="genre-icon">📖</span><div><div class="genre-name">Realist & Satirical Fiction</div><div class="genre-desc">Dickens, Hardy, Carroll. Satire and parody expose what direct argument cannot — the lived human cost of rigid systems.</div></div></li>
+        </ul>
+      </div>
+      <div>
+        <div class="quote-block">"I am the master of my fate, I am the captain of my soul."<cite>— W. E. Henley, Invictus (1888) — stoicism as imperial ideology</cite></div>
+        <div class="quote-block">"Play up! play up! and play the game!"<cite>— Sir Henry Newbolt, Vitai Lampada (1892) — cricket field as battlefield</cite></div>
+        <p style="color:var(--muted); margin-top:1.5rem;">Both poems use <strong style="color:var(--navy-deep)">steady meter</strong> and <strong style="color:var(--navy-deep)">repetition</strong> to make imperial values feel like natural law. The body memorizes the rhythm before the brain questions the message.</p>
+        <p style="color:var(--muted); margin-top:1rem;">Dickens's repetition of <em>"facts"</em> works the same way — but as satire. He shows the machinery of ideology so you can see it grinding.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <div class="container">
+    <span class="section-label">Class Activities</span>
+    <h2 class="section-title reveal">Hands-On Learning</h2>
+    <div class="divider"></div>
+    <p class="reveal" style="color:var(--body-text); max-width:680px; margin-bottom:3rem;">Two original activities to bring the readings to life — no readymade games, just genuine engagement with the texts.</p>
+    <div class="activity-cards">
+      <div class="activity-card reveal">
+        <div class="activity-header">
+          <h3>⚖️ Activity 1: The Imperial Courtroom</h3>
+          <span class="activity-badge">Roleplay</span>
+        </div>
+        <div class="activity-body">
+          <p>A dramatized trial. One group defends imperialism as "civilizing mission." Another prosecutes it as exploitation. The class votes — then we discuss how the <em>same evidence</em> was used by both sides.</p>
+          <div class="activity-step"><div class="step-num">1</div><div class="step-text">Divide into Prosecution (Thomas, Hobson, Fenians) and Defense (Macaulay, Chamberlain, Tennyson)</div></div>
+          <div class="activity-step"><div class="step-num">2</div><div class="step-text">Each side has 4 minutes to make their case using direct textual evidence from the readings</div></div>
+          <div class="activity-step"><div class="step-num">3</div><div class="step-text">Class votes — then we discuss how the verdict changed nothing historically, and why</div></div>
+          <p style="font-style:italic; color:var(--navy); font-size:0.87rem; margin-bottom:0;">Connected to: Macaulay, Froude, Thomas, Hobson, Chamberlain</p>
+        </div>
+      </div>
+      <div class="activity-card reveal">
+        <div class="activity-header">
+          <h3>✍️ Activity 2: Rewrite the Classroom</h3>
+          <span class="activity-badge">Creative Writing</span>
+        </div>
+        <div class="activity-body">
+          <p>Students receive Gradgrind's "facts" speech from Hard Times and rewrite it from a student's perspective — using the emotional register of Alice or Jude.</p>
+          <div class="activity-step"><div class="step-num">1</div><div class="step-text">Read the Gradgrind passage aloud — note how the rhythm feels as you hear it</div></div>
+          <div class="activity-step"><div class="step-num">2</div><div class="step-text">Choose a lens: Alice (absurdist rebellion), Jude (quiet despair), or invent your own Victorian student</div></div>
+          <div class="activity-step"><div class="step-num">3</div><div class="step-text">Write 5–8 sentences from that POV. Share and discuss how the form changes the critique</div></div>
+          <p style="font-style:italic; color:var(--crimson); font-size:0.87rem; margin-bottom:0;">Connected to: Dickens, Carroll, Hardy, Cobbe, Mill</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEBATE -->
+<section id="debate">
+  <div class="container">
+    <span class="section-label">Overall Scope & Context</span>
+    <h2 class="section-title reveal">Two Sides of<br/>the Same Empire</h2>
+    <div class="divider"></div>
+    <p class="reveal" style="color:var(--body-text); max-width:700px; margin-bottom:0;">Empire was never a settled question. These writers argued in real time about power, race, civilization, and who gets to be educated. The debate still isn't over.</p>
+    <div class="debate-container">
+      <div class="side side-empire reveal">
+        <span class="side-label">The Case For Empire</span>
+        <div class="side-title">Civilization, Duty & Glory</div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Empire as moral mission — bringing "superior" knowledge to colonized peoples (Macaulay)</div></div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">National strength and economic necessity justify expansion (Chamberlain)</div></div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Patriotic sacrifice framed as natural and noble through poetry (Tennyson, Newbolt)</div></div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Schools and sports build the "character" needed to govern the world (Hughes, Newbolt)</div></div>
+        <div class="debate-writers">Macaulay · Chamberlain · Froude · Tennyson · Newbolt · Henley</div>
+      </div>
+      <div class="side side-resist reveal">
+        <span class="side-label">The Case Against</span>
+        <div class="side-title">Exploitation, Resistance & Cost</div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Empire is economically motivated by capitalist elites — not national good (Hobson)</div></div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Racial "inferiority" is invented to justify colonial power — not observed (Thomas)</div></div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Colonized peoples observe the empire's self-image versus its reality (Mukharji)</div></div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Rigid education systems reproduce class inequality and suppress imagination (Dickens, Hardy)</div></div>
+        <div class="debate-writers">Thomas · Hobson · Irish Fenians · Mukharji · Dickens · Carroll · Hardy · Cobbe</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECTIONS -->
+<section id="connections">
+  <div class="container">
+    <span class="section-label">Associated Works</span>
+    <h2 class="section-title reveal">Beyond the Readings</h2>
+    <div class="divider"></div>
+    <p class="reveal" style="color:var(--body-text); max-width:640px;">These readings connect to films, novels, and visual culture — extending the conversation well beyond the 19th century.</p>
+    <div class="connections-grid">
+      <div class="connection-item reveal"><span class="connection-icon">🎬</span><div class="connection-title">Gandhi (1982)</div><div class="connection-rel">Resistance to British rule in India — echoes Thomas and Hobson</div></div>
+      <div class="connection-item reveal"><span class="connection-icon">🎬</span><div class="connection-title">Dead Poets Society</div><div class="connection-rel">Rigid schooling vs. imagination — Dickens's Gradgrind, modernized</div></div>
+      <div class="connection-item reveal"><span class="connection-icon">📚</span><div class="connection-title">Burmese Days — Orwell</div><div class="connection-rel">Moral ambiguity of British imperial society in Asia</div></div>
+      <div class="connection-item reveal"><span class="connection-icon">📜</span><div class="connection-title">The White Man's Burden</div><div class="connection-rel">Kipling aligns with Tennyson & Chamberlain in ideology and tone</div></div>
+      <div class="connection-item reveal"><span class="connection-icon">🎬</span><div class="connection-title">Billy Elliot (2000)</div><div class="connection-rel">Class barriers vs. aspiration — Hardy's Jude in the 20th century</div></div>
+      <div class="connection-item reveal"><span class="connection-icon">🖼️</span><div class="connection-title">Charge of the Light Brigade</div><div class="connection-rel">Martial valor, imperial sacrifice — visual equivalent of Vitai Lampada</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDITS -->
+<section id="credits">
+  <div class="container">
+    <span class="section-label">References & Credits</span>
+    <h2 class="section-title reveal">Works Cited</h2>
+    <div class="divider"></div>
+    <div class="credits-grid reveal">
+      <div class="credits-section">
+        <h3>Primary Sources — Empire</h3>
+        <ul class="credits-list">
+          <li><span class="author">Macaulay, T. B.</span> <em>Minute on Indian Education.</em> 1835.</li>
+          <li><span class="author">Froude, J. A.</span> <em>The English in the West Indies.</em> London, 1888.</li>
+          <li><span class="author">Thomas, J. J.</span> <em>Froudacity.</em> Port of Spain, 1889.</li>
+          <li><span class="author">Chamberlain, J.</span> <em>The True Conception of Empire.</em> London, 1897.</li>
+          <li><span class="author">Hobson, J. A.</span> <em>Imperialism: A Study.</em> London, 1902.</li>
+          <li><span class="author">Mukharji, T. N.</span> <em>A Visit to Europe.</em> Calcutta, 1889.</li>
+          <li><span class="author">Tennyson, A.</span> <em>Opening of the Indian and Colonial Exhibition.</em> 1886.</li>
+          <li><span class="author">Newbolt, H.</span> <em>Vitai Lampada.</em> London, 1892.</li>
+          <li><span class="author">Henley, W. E.</span> <em>Invictus.</em> London, 1888.</li>
+          <li><span class="author">Fenian Movement.</span> <em>Proclamation of an Irish Republic.</em> 1867.</li>
+          <li><span class="author">Arnold, M.</span> <em>On the Study of Celtic Literature.</em> Oxford, 1867.</li>
+          <li><span class="author">Russell, W. H.</span> <em>My Diary in India.</em> London, 1860.</li>
+        </ul>
+      </div>
+      <div class="credits-section">
+        <h3>Primary Sources — Education</h3>
+        <ul class="credits-list">
+          <li><span class="author">Dickens, C.</span> <em>Hard Times.</em> London, 1854.</li>
+          <li><span class="author">Carroll, L.</span> <em>Alice's Adventures in Wonderland.</em> London, 1865.</li>
+          <li><span class="author">Hardy, T.</span> <em>Jude the Obscure.</em> London, 1895.</li>
+          <li><span class="author">Hughes, T.</span> <em>Tom Brown's School Days.</em> London, 1857.</li>
+          <li><span class="author">Cobbe, F. P.</span> <em>The Education of Women.</em> 1868.</li>
+          <li><span class="author">Mill, J. S.</span> <em>Inaugural Address, St. Andrews.</em> Scotland, 1867.</li>
+          <li><span class="author">Thompson, F.</span> <em>Lark Rise.</em> London, 1939.</li>
+          <li><span class="author">Maurice, F. D.</span> <em>Learning and Working.</em> London, 1850s.</li>
+          <li><span class="author">UK Government.</span> <em>The New Code of 1879.</em> London, 1879.</li>
+        </ul>
+        <h3 style="margin-top:2rem;">Website Resources</h3>
+        <ul class="credits-list">
+          <li>Typography: Google Fonts — Playfair Display & DM Sans</li>
+          <li>Module 2 Assignment Instructions — Class Handout, 2026</li>
+          <li>Rubric: RubiStar by Deborah Kalkman, 2003</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">Empire, Education, and the Making of Victorian Power &nbsp;·&nbsp; Module 2 &nbsp;·&nbsp; 2026</div>
+  </div>
+</section>
+
+<script>
+  function filterWriters(cat, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.writer-card').forEach(card => {
+      card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+    });
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

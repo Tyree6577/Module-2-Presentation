@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Empire, Education & Victorian Power</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    /* Primary */
+    --navy:          #1b2a4a;
+    --navy-deep:     #111d35;
+    --navy-mid:      #243560;
+    --navy-light:    #2e4478;
+
+    /* Background */
+    --parchment:     #f5e6c8;
+    --parchment-mid: #eddbb0;
+    --parchment-dark:#e0c98a;
+    --cream:         #fdf6e3;
+
+    /* Accent */
+    --crimson:       #9b1c2e;
+    --crimson-deep:  #6e1220;
+    --crimson-light: #c0283e;
+    --crimson-muted: rgba(155,28,46,0.12);
+
+    /* Supporting */
+    --ink:           #1a0f00;
+    --body-text:     #2c1f0e;
+    --muted:         #5a4a38;
+    --smoke:         #d8c9a8;
+    --white:         #ffffff;
+    --border:        #e0d0b0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--body-text);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.9rem 3rem;
+    background: var(--navy-deep);
+    border-bottom: 2px solid var(--crimson);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.35);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700;
+    color: var(--parchment); letter-spacing: 0.08em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--smoke); text-decoration: none; font-size: 0.8rem;
+    font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--parchment); }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 7rem 2rem 5rem; position: relative; overflow: hidden;
+    background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 50%, #1f1830 100%);
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 50%, rgba(155,28,46,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 40%, rgba(245,230,200,0.07) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .hero-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(245,230,200,0.08);
+    pointer-events: none; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  }
+  .ring-1 { width: 72vmin; height: 72vmin; }
+  .ring-2 { width: 52vmin; height: 52vmin; border-color: rgba(155,28,46,0.12); }
+  .ring-3 { width: 32vmin; height: 32vmin; border-color: rgba(245,230,200,0.06); }
+
+  #hero::after {
+    content: '';
+    position: absolute; left: 0; top: 15%; bottom: 15%;
+    width: 3px;
+    background: linear-gradient(to bottom, transparent, var(--crimson), transparent);
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--crimson-muted); border: 1px solid rgba(155,28,46,0.4);
+    color: #e07080; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase;
+    padding: 0.38rem 1.3rem; border-radius: 2px; margin-bottom: 1.8rem;
+    animation: fadeUp 0.9s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5.8rem);
+    font-weight: 900; line-height: 1.06; color: var(--parchment); margin-bottom: 1.5rem;
+    animation: fadeUp 0.9s 0.15s ease both;
+  }
+  .hero-title em { font-style: italic; color: #e8c47a; }
+  .hero-subtitle {
+    max-width: 580px; color: var(--smoke); font-size: 1.1rem; margin-bottom: 3rem;
+    animation: fadeUp 0.9s 0.3s ease both;
+  }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.9s 0.45s ease both; }
+
+  .btn {
+    padding: 0.78rem 2.2rem; border-radius: 3px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer; transition: all 0.25s;
+    border: 2px solid transparent; display: inline-block;
+  }
+  .btn-crimson { background: var(--crimson); color: var(--parchment); border-color: var(--crimson); }
+  .btn-crimson:hover { background: var(--crimson-light); border-color: var(--crimson-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(155,28,46,0.4); }
+  .btn-outline { background: transparent; border-color: rgba(245,230,200,0.35); color: var(--parchment); }
+  .btn-outline:hover { border-color: var(--parchment); transform: translateY(-2px); }
+
+  .scroll-indicator {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(245,230,200,0.3); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    animation: fadeUp 0.9s 0.9s ease both;
+  }
+  .scroll-line { width: 1px; height: 36px; background: linear-gradient(to bottom, rgba(245,230,200,0.4), transparent); animation: scrollPulse 2s infinite; }
+
+  /* ===== SHARED ===== */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.35em;
+    text-transform: uppercase; color: var(--crimson); background: var(--crimson-muted);
+    padding: 0.28rem 0.85rem; border-radius: 2px; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4vw, 3rem);
+    font-weight: 700; line-height: 1.15; color: var(--navy-deep); margin-bottom: 1rem;
+  }
+  .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--crimson), var(--navy)); border-radius: 3px; margin-bottom: 2.5rem; }
+
+  /* ===== CONTEXT ===== */
+  #context { background: var(--parchment); }
+  .context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .context-text p { color: var(--body-text); margin-bottom: 1.1rem; }
+
+  .context-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .stat-card {
+    padding: 1.7rem; border-radius: 4px;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(0,0,0,0.15); }
+
+  .stat-card:nth-child(1) { background: var(--navy);      color: var(--parchment); }
+  .stat-card:nth-child(1)::before { background: linear-gradient(90deg, var(--crimson), #e04060); }
+
+  .stat-card:nth-child(2) { background: var(--crimson);   color: var(--parchment); }
+  .stat-card:nth-child(2)::before { background: linear-gradient(90deg, #e8c47a, #c0a050); }
+
+  .stat-card:nth-child(3) { background: var(--navy-deep); color: var(--parchment); }
+  .stat-card:nth-child(3)::before { background: linear-gradient(90deg, var(--parchment-dark), var(--crimson)); }
+
+  .stat-card:nth-child(4) { background: var(--crimson-deep); color: var(--parchment); }
+  .stat-card:nth-child(4)::before { background: linear-gradient(90deg, #e8c47a, var(--navy-light)); }
+
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; display: block; }
+  .stat-label { font-size: 0.8rem; font-weight: 600; opacity: 0.85; margin-top: 0.2rem; }
+
+  /* ===== WRITERS ===== */
+  #readers { background: var(--cream); }
+  .voices-intro { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; margin-bottom: 3rem; align-items: start; }
+  .voices-quote {
+    font-family: 'Playfair Display', serif; font-size: 1.15rem; font-style: italic;
+    color: var(--navy); padding: 1.5rem 1.8rem;
+    background: var(--parchment); border-left: 4px solid var(--crimson);
+    border-radius: 0 4px 4px 0; line-height: 1.6;
+  }
+  .voices-desc { color: var(--body-text); padding-top: 0.3rem; }
+
+  .writers-tabs { display: flex; gap: 0.6rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .tab-btn {
+    padding: 0.42rem 1.15rem; border-radius: 2px; border: 1px solid var(--border);
+    background: var(--white); color: var(--muted); font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.22s; letter-spacing: 0.06em;
+  }
+  .tab-btn.active, .tab-btn:hover { border-color: var(--navy); color: var(--navy); background: rgba(27,42,74,0.06); }
+
+  .writers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.3rem; }
+  .writer-card {
+    background: var(--white); border-radius: 4px; padding: 1.8rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 8px rgba(27,42,74,0.06);
+    transition: all 0.28s; position: relative; overflow: hidden;
+  }
+  .writer-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .writer-card[data-cat="defender"]::before { background: linear-gradient(90deg, var(--crimson), var(--crimson-light)); }
+  .writer-card[data-cat="critic"]::before   { background: linear-gradient(90deg, var(--navy), var(--navy-light)); }
+  .writer-card[data-cat="poet"]::before     { background: linear-gradient(90deg, #7a5c20, #c0a050); }
+  .writer-card[data-cat="educator"]::before { background: linear-gradient(90deg, #2a5a3a, #3a8a5a); }
+  .writer-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(27,42,74,0.12); border-color: var(--parchment-dark); }
+
+  .writer-stance { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.22rem 0.65rem; border-radius: 2px; display: inline-block; margin-bottom: 0.9rem; }
+  .stance-defender { background: rgba(155,28,46,0.1);  color: var(--crimson); }
+  .stance-critic   { background: rgba(27,42,74,0.1);   color: var(--navy); }
+  .stance-poet     { background: rgba(122,92,32,0.1);  color: #7a5c20; }
+  .stance-educator { background: rgba(42,90,58,0.1);   color: #2a5a3a; }
+
+  .writer-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--navy-deep); margin-bottom: 0.25rem; }
+  .writer-work { font-style: italic; color: var(--crimson); font-size: 0.87rem; margin-bottom: 0.7rem; }
+  .writer-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.55; }
+  .hidden { display: none !important; }
+
+
+  /* ===== REACTIONS ===== */
+  #reactions { background: var(--navy-deep); }
+  #reactions .section-label { background: rgba(155,28,46,0.25); color: #e07080; }
+  #reactions .section-title { color: var(--parchment); }
+
+  .reactions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.4rem; margin-top: 2.5rem; }
+  .reaction-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(245,230,200,0.12);
+    border-radius: 4px; padding: 2rem 1.8rem; transition: background 0.3s, transform 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .reaction-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--crimson), transparent);
+    transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+  }
+  .reaction-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-3px); }
+  .reaction-card:hover::before { transform: scaleX(1); }
+
+  .reaction-name { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #e8c47a; margin-bottom: 0.5rem; }
+  .reaction-emotion { font-size: 2rem; display: block; margin-bottom: 0.8rem; }
+  .reaction-text { color: var(--smoke); font-size: 0.93rem; line-height: 1.65; }
+  .reaction-text strong { color: var(--parchment); }
+
+  /* ===== ANALYSIS ===== */
+  #analysis { background: var(--parchment); }
+  #analysis .section-title { color: var(--navy-deep); }
+
+  .analysis-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .genre-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+  .genre-item {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    padding: 1.15rem 1.4rem; border-radius: 3px;
+    background: rgba(255,255,255,0.6); border: 1px solid var(--border);
+    transition: border-color 0.25s, transform 0.25s, background 0.25s;
+  }
+  .genre-item:hover { border-color: var(--navy); background: var(--white); transform: translateX(4px); }
+  .genre-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .genre-name { font-weight: 700; color: var(--navy-deep); margin-bottom: 0.2rem; font-size: 0.95rem; }
+  .genre-desc { color: var(--muted); font-size: 0.87rem; line-height: 1.5; }
+
+  .quote-block {
+    margin: 1.4rem 0; padding: 1.5rem 1.8rem; border-radius: 3px;
+    background: var(--navy); border-left: 3px solid var(--crimson);
+    font-family: 'Playfair Display', serif; font-style: italic;
+    color: var(--parchment); font-size: 1.05rem; line-height: 1.65;
+  }
+  .quote-block cite { display: block; margin-top: 0.7rem; font-size: 0.76rem; font-style: normal; color: #e07080; font-weight: 600; letter-spacing: 0.06em; }
+
+  /* ===== ACTIVITIES ===== */
+  #activities { background: var(--cream); }
+  .activity-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .activity-card {
+    border-radius: 4px; overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 16px rgba(27,42,74,0.08); transition: transform 0.3s, box-shadow 0.3s; background: var(--white);
+  }
+  .activity-card:hover { transform: translateY(-5px); box-shadow: 0 14px 40px rgba(27,42,74,0.15); }
+
+  .activity-header { padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .activity-card:nth-child(1) .activity-header { background: linear-gradient(135deg, var(--navy-deep), var(--navy-mid)); }
+  .activity-card:nth-child(2) .activity-header { background: linear-gradient(135deg, var(--crimson-deep), var(--crimson)); }
+
+  .activity-header h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--parchment); font-weight: 700; line-height: 1.3; }
+  .activity-badge {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    background: rgba(255,255,255,0.18); color: var(--parchment); padding: 0.22rem 0.65rem; border-radius: 2px; white-space: nowrap; margin-left: 1rem;
+  }
+  .activity-body { padding: 2rem; }
+  .activity-body p { color: var(--body-text); margin-bottom: 1.1rem; font-size: 0.96rem; }
+  .activity-step { display: flex; gap: 1rem; margin-bottom: 0.9rem; align-items: flex-start; }
+  .step-num {
+    width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; margin-top: 3px; color: var(--white);
+  }
+  .activity-card:nth-child(1) .step-num { background: var(--navy); }
+  .activity-card:nth-child(2) .step-num { background: var(--crimson); }
+  .step-text { color: var(--body-text); font-size: 0.92rem; }
+
+  /* ===== DEBATE ===== */
+  #debate { background: var(--parchment); }
+  #debate .section-title { color: var(--navy-deep); }
+
+  .debate-container { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 3rem; }
+  .side { border-radius: 4px; padding: 2.2rem; border: 1px solid; transition: transform 0.3s; }
+  .side:hover { transform: translateY(-4px); }
+
+  .side-empire {
+    background: linear-gradient(160deg, rgba(27,42,74,0.06), rgba(27,42,74,0.12));
+    border-color: rgba(27,42,74,0.25);
+  }
+  .side-resist {
+    background: linear-gradient(160deg, rgba(155,28,46,0.05), rgba(155,28,46,0.1));
+    border-color: rgba(155,28,46,0.25);
+  }
+
+  .side-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 0.6rem; display: block; }
+  .side-empire .side-label { color: var(--navy); }
+  .side-resist .side-label { color: var(--crimson); }
+  .side-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--navy-deep); margin-bottom: 1.4rem; }
+
+  .argument-item { display: flex; gap: 0.9rem; margin-bottom: 0.85rem; align-items: flex-start; }
+  .arg-dot { width: 7px; height: 7px; border-radius: 50%; margin-top: 0.58rem; flex-shrink: 0; }
+  .side-empire .arg-dot { background: var(--navy); }
+  .side-resist .arg-dot { background: var(--crimson); }
+  .arg-text { color: var(--body-text); font-size: 0.93rem; }
+
+  .debate-writers { font-size: 0.76rem; font-weight: 600; margin-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 1rem; }
+  .side-empire .debate-writers { color: var(--navy); }
+  .side-resist .debate-writers { color: var(--crimson); }
+
+  /* ===== CONNECTIONS ===== */
+  #connections { background: var(--cream); }
+  .connections-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.2rem; margin-top: 2.5rem; }
+  .connection-item {
+    background: var(--white); border-radius: 4px; padding: 1.5rem 1.2rem; text-align: center;
+    border: 1px solid var(--border); transition: all 0.28s; cursor: default;
+    position: relative; overflow: hidden;
+  }
+  .connection-item::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--navy), var(--crimson));
+    transform: scaleX(0); transition: transform 0.35s;
+  }
+  .connection-item:hover { border-color: var(--navy); transform: translateY(-4px); box-shadow: 0 10px 28px rgba(27,42,74,0.12); }
+  .connection-item:hover::after { transform: scaleX(1); }
+  .connection-icon { font-size: 2rem; margin-bottom: 0.7rem; display: block; }
+  .connection-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--navy-deep); font-weight: 700; margin-bottom: 0.4rem; }
+  .connection-rel { font-size: 0.78rem; color: var(--muted); line-height: 1.45; }
+
+  /* ===== CREDITS ===== */
+  #credits { background: var(--navy-deep); }
+  #credits .section-label { background: rgba(155,28,46,0.2); color: #e07080; }
+  #credits .section-title { color: var(--parchment); }
+  #credits .divider { background: linear-gradient(90deg, var(--crimson), var(--navy-light)); }
+
+  .credits-single { margin-top: 3rem; }
+  .credits-single h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: #e8c47a; margin-bottom: 1rem; letter-spacing: 0.04em; }
+  .credits-entry {
+    color: rgba(245,230,200,0.75); font-size: 0.92rem; line-height: 1.8;
+    padding: 1.4rem 1.8rem;
+    border-left: 2px solid rgba(155,28,46,0.5);
+    background: rgba(255,255,255,0.03);
+    border-radius: 0 4px 4px 0;
+  }
+  .credits-entry .author { color: var(--parchment); font-weight: 600; font-style: normal; }
+
+  .footer-bottom { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(155,28,46,0.2); text-align: center; font-size: 0.78rem; color: rgba(245,230,200,0.25); letter-spacing: 0.12em; }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:none; } }
+  @keyframes scrollPulse { 0%,100% { opacity:0.3; } 50% { opacity:1; } }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .context-grid, .analysis-layout, .activity-cards, .debate-container, .voices-intro { grid-template-columns: 1fr; gap: 2rem; }
+    section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Victorian Imperial Identity</span>
+  <ul class="nav-links">
+    <li><a href="#context">Context</a></li>
+    <li><a href="#readers">Writers</a></li>
+    <li><a href="#reactions">Reactions</a></li>
+    <li><a href="#analysis">Analysis</a></li>
+    <li><a href="#activities">Activities</a></li>
+    <li><a href="#debate">Debate</a></li>
+    <li><a href="#takeaways">Takeaways</a></li>
+    <li><a href="#credits">Credits</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-ring ring-1"></div>
+  <div class="hero-ring ring-2"></div>
+  <div class="hero-ring ring-3"></div>
+  <p class="hero-tag">📚 Module 2, Group Presentation</p>
+  <h1 class="hero-title">Rhetoric, <em>Resistance</em>,<br/>& Victorian Imperial Identity</h1>
+  <p class="hero-subtitle">How Britain defined itself, and was fiercely challenged, through the writers, educators, and rebel voices of the 19th century.</p>
+  <p style="color: rgba(245,230,200,0.45); font-size: 0.78rem; letter-spacing: 0.15em; margin-bottom: 2rem; animation: fadeUp 0.9s 0.35s ease both;">
+    Jonathan Guzman Santos &nbsp;·&nbsp; Edgar Barroso &nbsp;·&nbsp; Andres Contreras &nbsp;·&nbsp; Tyree Dawson &nbsp;·&nbsp; Hudayf Aydid
+  </p>
+  <div class="hero-cta">
+    <a href="#context" class="btn btn-crimson">Begin Exploring →</a>
+    <a href="#activities" class="btn btn-outline">Class Activities</a>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- CONTEXT -->
+<section id="context">
+  <div class="container">
+    <div class="context-grid reveal">
+      <div class="context-text">
+        <span class="section-label">Background</span>
+        <h2 class="section-title">A Nation Arguing<br/>With Itself</h2>
+        <div class="divider"></div>
+        <p>At the height of the 19th century, Britain controlled one-quarter of the world's land. Writers, politicians, and poets all reached for language to explain <em>why</em>, and whether it was right.</p>
+        <p>Some saw empire as a civilizing duty. Others tore that idea apart. Two battlegrounds dominated: <strong style="color:var(--navy)">Empire & National Identity</strong> and <strong style="color:var(--crimson)">Education in Victorian Britain</strong>.</p>
+        <p>These readings reveal how language shapes power, and how power can be resisted through language.</p>
+        <p>Britain's domestic ideals of liberty stood in direct contradiction to its treatment of its colonies. By combining Macaulay's "civilizing mission" with the critiques of J.A. Hobson and the rebuttals of J.J. Thomas, these texts expose the British Empire as a site of constant <em>cultural negotiation and disagreement</em>, far from the stable, peaceful arrangement empire apologists claimed.</p>
+        <p>Together, these works show how literature and public rhetoric built a nationalism and sense of superiority that would ultimately turn against itself.</p>
+      </div>
+      <div class="context-stats">
+        <!-- 🗺️ Replace the src below with your map image filename e.g. src="map.jpg" -->
+        <img src="https://i.ibb.co/4wwb78y9/map.webp" alt="Map of the British Empire" id="map-placeholder" style="width:100%; border-radius:4px; margin-bottom:1.2rem; border:2px dashed var(--parchment-dark); grid-column: 1 / -1; min-height:140px; background:rgba(224,201,138,0.1); display:flex; align-items:center; justify-content:center;" onerror="this.style.display='none'" />
+        <div class="stat-card reveal"><span class="stat-num">¼</span><span class="stat-label">Of the world under British control</span></div>
+        <div class="stat-card reveal"><span class="stat-num">20+</span><span class="stat-label">Writers from Britain, India, Caribbean & Ireland</span></div>
+        <div class="stat-card reveal"><span class="stat-num">1830s</span><span class="stat-label">To early 1900s, the span of our readings</span></div>
+        <div class="stat-card reveal"><span class="stat-num">2</span><span class="stat-label">Core themes: Empire and Education</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WRITERS -->
+<section id="readers">
+  <div class="container">
+    <span class="section-label">Whom Did You Read?</span>
+    <h2 class="section-title reveal">The Voices</h2>
+    <div class="divider"></div>
+    <div class="voices-intro reveal">
+      <p class="voices-quote">"Some voices justified empire. Some dismantled it. All reveal how ideas become power."</p>
+      <p class="voices-desc">Our readings bring together over a dozen writers from Britain, India, the Caribbean, and Ireland, spanning the 1830s to the early 1900s. Some wielded language to defend imperial power. Others used it to dismantle that same power from the outside. Filter by category below to explore each perspective, or browse all voices together to see how they speak to, and against, each other.</p>
+    </div>
+    <div class="writers-tabs">
+      <button class="tab-btn active" onclick="filterWriters('all',this)">All Writers</button>
+      <button class="tab-btn" onclick="filterWriters('defender',this)">🏛 Empire Defenders</button>
+      <button class="tab-btn" onclick="filterWriters('critic',this)">✊ Critics & Resistors</button>
+      <button class="tab-btn" onclick="filterWriters('poet',this)">🎵 Poets</button>
+      <button class="tab-btn" onclick="filterWriters('educator',this)">📖 Education</button>
+    </div>
+    <div class="writers-grid" id="writersGrid">
+      <div class="writer-card" data-cat="defender">
+        
+        <span class="writer-stance stance-defender">Empire Defender</span>
+        <div class="writer-name">Thomas Babington Macaulay <span style="color:#e8c47a; font-size:0.85rem;" title="Presented by our group">★</span></div>
+        <div class="writer-work">Minute on Indian Education, India (1835)</div>
+        <p class="writer-desc">A British historian and politician on the Supreme Council of the East India Company, Macaulay argued English was far superior to Sanskrit and Arabic for education. His goal was to create Indians "English in taste, in opinions, in morals, and in intellect" to serve as intermediaries between British rulers and the Indian masses.</p>
+      </div>
+      <div class="writer-card" data-cat="critic">
+        <span class="writer-stance stance-critic">Critic & Resistor</span>
+        <div class="writer-name">William Howard Russell</div>
+        <div class="writer-work">From My Diary in India, In the Year 1858–9, published in England (1860)</div>
+        <p class="writer-desc">One of the first modern war correspondents, Russell reported on the suppression of the Indian Mutiny (also known as the First War of Indian Independence). Visiting the massacre site at Cawnpore, he questions whether "India is the better for our rule," offering a rare critical voice from someone who witnessed British imperial rule firsthand.</p>
+      </div>
+      <div class="writer-card" data-cat="defender">
+        <span class="writer-stance stance-defender">Empire Defender</span>
+        <div class="writer-name">James Anthony Froude</div>
+        <div class="writer-work">England's Mission, London, England (1870)</div>
+        <p class="writer-desc">Froude argues that the British Empire has a responsibility to guide and rule the rest of the world. He presents imperial control as both necessary and beneficial, claiming that other societies are not yet prepared to manage their own governments. Overall, the text reflects a strong sense of pride in Britain's global role.</p>
+      </div>
+      <div class="writer-card" data-cat="defender">
+        <span class="writer-stance stance-defender">Empire Defender</span>
+        <div class="writer-name">Joseph Chamberlain</div>
+        <div class="writer-work">From The True Conception of Empire, speech delivered at the Royal Colonial Institute annual dinner, London (1897); later published in Foreign and Colonial Speeches</div>
+        <p class="writer-desc">Chamberlain traces the British Empire through three stages of development and argues that Britain has a duty to govern its colonies by bringing civilization, stability, and prosperity to other regions. He frames imperial expansion as a moral responsibility that benefits both Britain and the people living under its rule.</p>
+      </div>
+      <div class="writer-card" data-cat="critic">
+        
+        <span class="writer-stance stance-critic">Critic & Resistor</span>
+        <div class="writer-name">John Jacob Thomas <span style="color:#e8c47a; font-size:0.85rem;" title="Presented by our group">★</span></div>
+        <div class="writer-work">Froudacity: West Indian Fables by James Anthony Froude, London, England (1889)</div>
+        <p class="writer-desc">Thomas directly responds to Froude's claim that Black people in the West Indies were incapable of self-government. Using historical evidence of West Indian education and capability, he challenges Froude's racial assumptions and argues for the dignity and right to self-governance of Caribbean people.</p>
+      </div>
+      <div class="writer-card" data-cat="critic">
+        <span class="writer-stance stance-critic">Critic & Resistor</span>
+        <div class="writer-name">J. A. Hobson <span style="color:#e8c47a; font-size:0.85rem;" title="Presented by our group">★</span></div>
+        <div class="writer-work">From Imperialism: A Study, London (1902)</div>
+        <p class="writer-desc">An English economist and critic of empire, Hobson argues that Britain's claim to spread freedom through imperial rule is misleading. Using statistics from multiple colonies, he shows that most people under British rule had little political power, challenging the idea that empire existed to promote freedom or civilization.</p>
+      </div>
+      <div class="writer-card" data-cat="critic">
+        
+        <span class="writer-stance stance-critic">Critic & Resistor</span>
+        <div class="writer-name">Fenian Movement (Anonymous)</div>
+        <div class="writer-work">Proclamation of an Irish Republic, The Nation, Ireland (March 1867)</div>
+        <p class="writer-desc">A declaration of Irish independence published during the Great Famine. Organized by the Fenian rebel group, it lists grievances against British rule, asserts equal rights, and calls on republics worldwide to support Ireland's cause.</p>
+      </div>
+      <div class="writer-card" data-cat="critic">
+        <span class="writer-stance stance-critic">Critic & Resistor</span>
+        <div class="writer-name">Matthew Arnold</div>
+        <div class="writer-work">On the Study of Celtic Literature, Cornhill Magazine, 1866; delivered as Oxford lectures, 1865–66</div>
+        <p class="writer-desc">Arnold argues for greater appreciation of Celtic culture and its contributions to British national identity. He characterizes "Celtic Genius" as possessing magic, sensibility, and feeling, qualities that complement the Anglo-Saxon character, while also critiquing Victorian materialism.</p>
+      </div>
+      <div class="writer-card" data-cat="critic">
+        
+        <span class="writer-stance stance-critic">Critic & Resistor</span>
+        <div class="writer-name">T. N. Mukharji <span style="color:#e8c47a; font-size:0.85rem;" title="Presented by our group">★</span></div>
+        <div class="writer-work">A Visit to Europe, Calcutta, 1889 (associated with 1886 Exhibition; Norton Anthology, pp. 700–702)</div>
+        <p class="writer-desc">A colonized Indian visitor describes Europe and the 1886 Imperial Exhibition from the outside, quietly exposing how empire stages colonial cultures for European audiences and complicating Tennyson's triumphant narrative from within.</p>
+      </div>
+      <div class="writer-card" data-cat="poet">
+        <span class="writer-stance stance-poet">Poet</span>
+        <div class="writer-name">Alfred, Lord Tennyson <span style="color:#e8c47a; font-size:0.85rem;" title="Presented by our group">★</span></div>
+        <div class="writer-work">Opening of the Indian and Colonial Exhibition by the Queen, London, 1886 (Norton Anthology, pp. 700–702)</div>
+        <p class="writer-desc">Written for the 1886 Indian and Colonial Exhibition, this ceremonial poem celebrates Queen Victoria and presents the British Empire as unified, progressive, and morally justified, reinforcing national pride through patriotic imagery and rhyme.</p>
+      </div>
+      <div class="writer-card" data-cat="poet">
+        <span class="writer-stance stance-poet">Poet</span>
+        <div class="writer-name">Sir Henry Newbolt</div>
+        <div class="writer-work">Vitai Lampada, first published in Admirals All, Britain (1897)</div>
+        <p class="writer-desc">A patriotic ballad comparing a school cricket match to soldiers in battle. Through the repeated line "Play up! play up! and play the game!" Newbolt links school discipline to military courage, suggesting British education prepared young men for imperial service.</p>
+      </div>
+      <div class="writer-card" data-cat="poet">
+        <span class="writer-stance stance-poet">Poet</span>
+        <div class="writer-name">William Ernest Henley</div>
+        <div class="writer-work">The Song of the Sword, London, England (1892)</div>
+        <p class="writer-desc">Using the sword as a symbol of honor and national strength, the poem celebrates bravery and conflict as forces that build strong individuals and nations, capturing the nationalism and imperial pride that defined much of British literature in the Victorian era.</p>
+      </div>
+      <div class="writer-card" data-cat="educator">
+        <span class="writer-stance stance-educator">Education</span>
+        <div class="writer-name">Charles Dickens <span style="color:#e8c47a; font-size:0.85rem;" title="Presented by our group">★</span></div>
+        <div class="writer-work">Hard Times (1854)</div>
+        <p class="writer-desc">Attacks utilitarian fact-obsessed schooling. Mr. Gradgrind embodies a system that reduces children to data.</p>
+      </div>
+      <div class="writer-card" data-cat="educator">
+        <span class="writer-stance stance-educator">Education</span>
+        <div class="writer-name">Lewis Carroll</div>
+        <div class="writer-work">Alice's Adventures in Wonderland (1865)</div>
+        <p class="writer-desc">Parodies rigid adult logic and education, Wonderland as a world where institutional rules collapse into absurdity.</p>
+      </div>
+      <div class="writer-card" data-cat="educator">
+        <span class="writer-stance stance-educator">Education</span>
+        <div class="writer-name">Thomas Hardy <span style="color:#e8c47a; font-size:0.85rem;" title="Presented by our group">★</span></div>
+        <div class="writer-work">Jude the Obscure (1895)</div>
+        <p class="writer-desc">Jude's blocked academic dreams symbolize the brutal reality of class barriers in Victorian England.</p>
+      </div>
+      <div class="writer-card" data-cat="educator">
+        <span class="writer-stance stance-educator">Education</span>
+        <div class="writer-name">Frances Power Cobbe</div>
+        <div class="writer-work">The Education of Women (1868)</div>
+        <p class="writer-desc">Argues for expanded intellectual opportunity for women, a radical challenge to Victorian gender norms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REACTIONS -->
+<section id="reactions">
+  <div class="container">
+    <span class="section-label">First Reactions</span>
+    <h2 class="section-title reveal">Gut Responses<br/>Then Rethinking</h2>
+    <div class="divider"></div>
+    <p class="reveal" style="color:var(--smoke); max-width:680px;">First impressions shifted as we read more carefully, which is exactly how ideology works.</p>
+    <div class="reactions-grid">
+      <div class="reaction-card reveal">
+        <div class="reaction-name">Andres, Proclamation of an Irish Republic &amp; On the Study of Celtic Literature</div>
+        <div class="reaction-emotion">✊</div>
+        <p class="reaction-text"><strong>First (Proclamation):</strong> Honestly, it reminded me right away of the American Declaration of Independence. You can tell the British just never learn that when you treat your colonies badly, they're going to push back.<br/><br/><strong>After rereading:</strong> You can see a lot of Enlightenment thinking in there, the stuff about equal rights and calling on other republics. It's short, but it covers everything: the complaints, the principles, the call to action.<br/><br/><strong>First (Celtic Literature):</strong> I wasn't really sure what Arnold was going for at first. The whole "Celtic Genius" idea was kind of confusing and just raised more questions.<br/><br/><strong>After rereading:</strong> It made more sense the second time around. He's basically saying English identity isn't purely Anglo-Saxon, it's a mix. The idea that opposites can complement each other started to click.</p>
+      </div>
+      <div class="reaction-card reveal">
+        <div class="reaction-name">Tyree, Tennyson & Mukharji</div>
+        <div class="reaction-emotion">😮</div>
+        <p class="reaction-text"><strong>First (Mukharji):</strong> What stood out right away was the perspective. Having an Indian observer describe Europe was just really different from what you normally read. It almost felt like a travelogue, just describing what he saw during his time in Europe.<br/><br/><strong>After rereading (Mukharji):</strong> Reading it again I picked up on a lot more. There are a lot of subtle criticisms you might miss the first time. The way he describes colonized cultures being put on display like objects for Europeans to view is a pretty sharp critique that adds a whole other layer to the piece.<br/><br/><strong>First (Tennyson):</strong> Tennyson's poem felt very formal and patriotic. It's clearly written to celebrate the empire and Queen Victoria, and it does that confidently. At first it just reads like a straightforward ceremonial poem.<br/><br/><strong>After rereading:</strong> Once you read it alongside Mukharji it hits differently. Tennyson is openly celebrating the same exhibition that Mukharji is quietly critiquing. Putting the two side by side really shows how differently the empire looked depending on which side of it you were on.</p>
+      </div>
+      <div class="reaction-card reveal">
+        <div class="reaction-name">Hudayf, Macaulay & Russell</div>
+        <div class="reaction-emotion">😯</div>
+        <p class="reaction-text"><strong>First (Macaulay):</strong> Immediate shock at the arrogance. The way he dismisses the entire literary tradition of India and Arabia as worth less than one shelf of European books felt more like a declaration of cultural superiority than a reasoned argument.<br/><br/><strong>After rereading:</strong> My impression didn't change, but I understood it better as imperial rhetoric. It's a clear example of how the empire justified control not through force alone, but by claiming intellectual and moral superiority.<br/><br/><strong>First (Russell):</strong> Completely different. Much more complex and human. His internal conflict stood out, especially the moment he calls the police a "curse and a blight" and questions whether India is actually better off under British rule. That felt incredibly honest.<br/><br/><strong>After rereading:</strong> My admiration grew. He was wrestling with the moral contradictions of empire in a way most of his peers never did. A rare critical voice from someone who was actually there.</p>
+      </div>
+      <div class="reaction-card reveal">
+        <div class="reaction-name">Edgar, Froude, Thomas & Henley</div>
+        <div class="reaction-emotion">⚖️</div>
+        <p class="reaction-text"><strong>First (England's Mission):</strong> Right away it felt like an essay justifying British control. Froude comes across as arrogant, but I could see how it was probably inspiring pride in British readers at the time.<br/><br/><strong>First (Froudacity):</strong> I was immediately struck by Thomas directly challenging Froude. His use of historical examples was impressive and I genuinely felt proud reading it.<br/><br/><strong>After rereading:</strong> Still felt the same admiration. Thomas shows real courage standing up for people he felt had been misrepresented by the empire.<br/><br/><strong>First (Song of the Sword):</strong> The power and drama hit right away. Inspiring at first, but on rereading I noticed how much it glorifies war. Bold and energetic, but very much a product of Victorian ideals.</p>
+      </div>
+      <div class="reaction-card reveal">
+        <div class="reaction-name">Jonathan, Newbolt, Chamberlain & Hobson</div>
+        <div class="reaction-emotion">🏏</div>
+        <p class="reaction-text"><strong>First (Vitai Lampada):</strong> It sounded really patriotic and motivational. "Play up! play up! and play the game!" made it feel like it was about teamwork and courage. After rereading, I realized it's also pushing the idea that young men should be ready to fight and sacrifice themselves for their country.<br/><br/><strong>First (Chamberlain):</strong> Very confident and persuasive. He describes the empire as bringing peace and prosperity to other nations. Thinking about it more, though, the speech completely ignores the negative effects of imperialism and just assumes Britain has the right to rule over others.<br/><br/><strong>First (Hobson):</strong> More analytical and harder to get into at first because of all the statistics and political arguments. After spending more time with it, I understood that Hobson was directly challenging the idea that the empire spreads freedom. It made me think more critically about what imperial rule actually looked like for the people living under it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANALYSIS -->
+<section id="analysis">
+  <div class="container">
+    <span class="section-label">Formal Aspects</span>
+    <h2 class="section-title reveal">How They Wrote<br/>And Why It Matters</h2>
+    <div class="divider"></div>
+    <div class="analysis-layout reveal">
+      <div>
+        <p style="color:var(--body-text); margin-bottom:2rem;">The readings include both poetry and prose, and each text uses a different rhetorical strategy to shape how readers think about empire. Genre isn't decorative, the form each writer chose <em>is</em> part of the argument.</p>
+        <ul class="genre-list">
+          <li class="genre-item"><span class="genre-icon">📜</span><div><div class="genre-name">Argumentative Prose</div><div class="genre-desc">Macaulay and Chamberlain use definition and exemplification to justify empire. Chamberlain specifically uses persuasive language to walk through the three stages of the British Empire and convince his audience that imperial rule is beneficial. Hobson counters with economic analysis and statistics, exposing imperialism as financially driven rather than morally motivated.</div></div></li>
+          <li class="genre-item"><span class="genre-icon">📰</span><div><div class="genre-name">Narrative & Descriptive Prose</div><div class="genre-desc">Russell's diary uses firsthand observation to place readers in post-1857 India, quietly normalizing colonial rule. Mukharji uses the same descriptive mode but from a colonized perspective, exposing how exhibitions stage colonial subjects for European audiences.</div></div></li>
+          <li class="genre-item"><span class="genre-icon">📣</span><div><div class="genre-name">Political & Persuasive Prose</div><div class="genre-desc">The Irish Proclamation uses direct, declarative rhetoric mirroring a legal declaration. Arnold's analytical prose contrasts Celtic and Anglo-Saxon traits to argue for their shared role in shaping British national identity.</div></div></li>
+          <li class="genre-item"><span class="genre-icon">⚔️</span><div><div class="genre-name">Rebuttal & Structured Argument</div><div class="genre-desc">Froude uses exemplification to defend British imperial control. Thomas responds directly with rebuttal and comparison, systematically dismantling Froude's racial claims.</div></div></li>
+          <li class="genre-item"><span class="genre-icon">🎵</span><div><div class="genre-name">Lyric Poetry & Patriotic Ballad</div><div class="genre-desc">Newbolt's "Vitai Lampada" is a patriotic ballad that uses rhythm, repetition, and imagery to compare a cricket game to a battlefield, with the repeated phrase "Play up!" driving home themes of courage and duty. Henley's verse uses rhyme and metaphor to symbolize Victorian resilience. Tennyson's ceremonial verse celebrates empire through patriotic imagery.</div></div></li>
+        </ul>
+      </div>
+      <div>
+        <div class="quote-block">"I am the master of my fate, I am the captain of my soul."<cite>W. E. Henley, The Song of the Sword (1892), strength and nationalism as Victorian imperial ideal</cite></div>
+        <div class="quote-block">"Play up! play up! and play the game!"<cite>Sir Henry Newbolt, Vitai Lampada (1897), school sports as training for imperial duty</cite></div>
+        <p style="color:var(--muted); margin-top:1.5rem;">Both poems use <strong style="color:var(--navy-deep)">steady meter</strong> and <strong style="color:var(--navy-deep)">repetition</strong> to make imperial values feel like natural law, the body memorizes the rhythm before the mind questions the message.</p>
+        <p style="color:var(--muted); margin-top:1rem;">Across the prose works, the rhetorical strategy shifts depending on whose side the writer is on: <strong style="color:var(--navy-deep)">definition and exemplification</strong> for defenders like Macaulay and Chamberlain; <strong style="color:var(--crimson)">rebuttal and counter-evidence</strong> for critics like Thomas and Hobson. The form itself signals the argument.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <div class="container">
+    <span class="section-label">Class Activity</span>
+    <h2 class="section-title reveal">Victorian Wordle</h2>
+    <div class="divider"></div>
+    <p class="reveal" style="color:var(--body-text); max-width:680px; margin-bottom:2.5rem;">Pick a hint and guess the hidden word related to Victorian imperial identity. You have 6 tries. Green means correct letter in the right spot. Yellow means correct letter in the wrong spot. Grey means the letter is not in the word.</p>
+
+    <div id="wordle-game" style="max-width:420px; margin:0 auto;">
+
+      <!-- Word selector with hints -->
+      <div style="display:flex; gap:0.6rem; justify-content:center; margin-bottom:1.8rem; flex-wrap:wrap;">
+        <button onclick="setWord('EMPIRE',this)" class="word-select-btn active-word">Hint 1: The name for Britain's system of ruling other nations</button>
+        <button onclick="setWord('MACAULAY',this)" class="word-select-btn">Hint 2: British official who pushed English education in India</button>
+        <button onclick="setWord('DUTY',this)" class="word-select-btn">Hint 3: Belief that Britain had a responsibility to rule and civilize other nations</button>
+      </div>
+
+      <!-- Grid -->
+      <div id="wordle-grid" style="display:grid; grid-template-rows: repeat(6,1fr); gap:6px; margin-bottom:1.5rem;"></div>
+
+      <!-- Message -->
+      <div id="wordle-msg" style="text-align:center; font-family:'Playfair Display',serif; font-size:1rem; color:var(--crimson); min-height:1.6rem; margin-bottom:1.2rem; font-weight:700;"></div>
+
+      <!-- Keyboard -->
+      <div id="wordle-keyboard" style="display:flex; flex-direction:column; gap:6px; align-items:center;"></div>
+
+      <!-- Restart -->
+      <div style="text-align:center; margin-top:1.4rem;">
+        <button onclick="restartGame()" style="padding:0.55rem 1.8rem; background:var(--navy); color:var(--parchment); border:none; border-radius:3px; font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer;">New Game</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .word-select-btn {
+      padding: 0.5rem 1rem; border-radius: 3px; border: 2px solid var(--border);
+      background: var(--white); color: var(--navy); font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem; font-weight: 600; cursor: pointer; letter-spacing: 0.03em;
+      transition: all 0.2s; text-align: left; max-width: 340px;
+    }
+    .word-select-btn:hover { border-color: var(--navy); background: rgba(27,42,74,0.06); }
+    .active-word { border-color: var(--crimson) !important; background: var(--crimson-muted) !important; color: var(--crimson) !important; }
+
+    .w-tile {
+      width: 52px; height: 52px; border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900;
+      color: var(--navy-deep); background: var(--white);
+      border-radius: 3px; transition: background 0.3s, border-color 0.3s, color 0.3s;
+      text-transform: uppercase;
+    }
+    .w-tile.filled { border-color: var(--navy); }
+    .w-tile.correct { background: #2a7a4a; border-color: #2a7a4a; color: white; }
+    .w-tile.present { background: #b07a20; border-color: #b07a20; color: white; }
+    .w-tile.absent  { background: #5a4a38; border-color: #5a4a38; color: white; }
+
+    .w-key {
+      padding: 0.55rem 0.7rem; min-width: 34px; border-radius: 3px;
+      border: none; background: var(--parchment-mid); color: var(--navy-deep);
+      font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; text-transform: uppercase; transition: background 0.2s, color 0.2s;
+    }
+    .w-key:hover { background: var(--parchment-dark); }
+    .w-key.correct { background: #2a7a4a; color: white; }
+    .w-key.present { background: #b07a20; color: white; }
+    .w-key.absent  { background: #5a4a38; color: #aaa; }
+    .w-key.wide { min-width: 56px; font-size: 0.7rem; }
+  </style>
+
+  <script>
+    const WORDS = { EMPIRE: true, MACAULAY: true, DUTY: true };
+    let targetWord = 'EMPIRE';
+    let currentRow = 0;
+    let currentCol = 0;
+    let currentGuess = [];
+    let gameOver = false;
+    let wordLen = 6;
+
+    function setWord(word, btn) {
+      document.querySelectorAll('.word-select-btn').forEach(b => b.classList.remove('active-word'));
+      btn.classList.add('active-word');
+      targetWord = word;
+      wordLen = word.length;
+      restartGame();
+    }
+
+    function buildGrid() {
+      const grid = document.getElementById('wordle-grid');
+      grid.innerHTML = '';
+      grid.style.gridTemplateColumns = `repeat(${wordLen}, 1fr)`;
+      for (let r = 0; r < 6; r++) {
+        for (let c = 0; c < wordLen; c++) {
+          const tile = document.createElement('div');
+          tile.className = 'w-tile';
+          tile.id = `tile-${r}-${c}`;
+          grid.appendChild(tile);
+        }
+      }
+    }
+
+    function buildKeyboard() {
+      const rows = [['Q','W','E','R','T','Y','U','I','O','P'],['A','S','D','F','G','H','J','K','L'],['ENTER','Z','X','C','V','B','N','M','\u232b']];
+      const kb = document.getElementById('wordle-keyboard');
+      kb.innerHTML = '';
+      rows.forEach(row => {
+        const div = document.createElement('div');
+        div.style.display = 'flex'; div.style.gap = '5px';
+        row.forEach(k => {
+          const btn = document.createElement('button');
+          btn.className = 'w-key' + (k === 'ENTER' || k === '\u232b' ? ' wide' : '');
+          btn.textContent = k; btn.id = 'key-' + k;
+          btn.onclick = () => handleKey(k);
+          div.appendChild(btn);
+        });
+        kb.appendChild(div);
+      });
+    }
+
+    function handleKey(k) {
+      if (gameOver) return;
+      const msg = document.getElementById('wordle-msg');
+      msg.textContent = '';
+      if (k === '\u232b' || k === 'Backspace') {
+        if (currentCol > 0) {
+          currentCol--;
+          currentGuess.pop();
+          document.getElementById(`tile-${currentRow}-${currentCol}`).textContent = '';
+          document.getElementById(`tile-${currentRow}-${currentCol}`).classList.remove('filled');
+        }
+      } else if (k === 'ENTER' || k === 'Enter') {
+        if (currentCol < wordLen) { msg.textContent = 'Not enough letters!'; return; }
+        submitGuess();
+      } else if (/^[A-Z]$/.test(k) && currentCol < wordLen) {
+        document.getElementById(`tile-${currentRow}-${currentCol}`).textContent = k;
+        document.getElementById(`tile-${currentRow}-${currentCol}`).classList.add('filled');
+        currentGuess.push(k);
+        currentCol++;
+      }
+    }
+
+    function submitGuess() {
+      const guess = currentGuess.join('');
+      const target = targetWord.split('');
+      const result = Array(wordLen).fill('absent');
+      const used = Array(wordLen).fill(false);
+      const guessUsed = Array(wordLen).fill(false);
+      for (let i = 0; i < wordLen; i++) {
+        if (guess[i] === target[i]) { result[i] = 'correct'; used[i] = true; guessUsed[i] = true; }
+      }
+      for (let i = 0; i < wordLen; i++) {
+        if (guessUsed[i]) continue;
+        for (let j = 0; j < wordLen; j++) {
+          if (!used[j] && guess[i] === target[j]) { result[i] = 'present'; used[j] = true; break; }
+        }
+      }
+      for (let i = 0; i < wordLen; i++) {
+        setTimeout(() => {
+          const tile = document.getElementById(`tile-${currentRow}-${i}`);
+          tile.classList.add(result[i]);
+          const key = document.getElementById('key-' + guess[i]);
+          if (key) {
+            const priority = { correct: 3, present: 2, absent: 1 };
+            const cur = key.classList.contains('correct') ? 3 : key.classList.contains('present') ? 2 : key.classList.contains('absent') ? 1 : 0;
+            if (priority[result[i]] > cur) { key.className = 'w-key' + (guess[i].length > 1 ? ' wide' : '') + ' ' + result[i]; }
+          }
+        }, i * 80);
+      }
+      setTimeout(() => {
+        const msg = document.getElementById('wordle-msg');
+        if (guess === targetWord) {
+          const msgs = ['Brilliant!','Excellent!','Well done!','Nice one!','Got it!','Phew!'];
+          msg.textContent = msgs[currentRow] || 'You got it!';
+          msg.style.color = '#2a7a4a';
+          gameOver = true;
+        } else {
+          currentRow++; currentCol = 0; currentGuess = [];
+          if (currentRow === 6) {
+            msg.textContent = `The word was ${targetWord}.`;
+            msg.style.color = 'var(--crimson)';
+            gameOver = true;
+          }
+        }
+      }, wordLen * 80 + 200);
+    }
+
+    function restartGame() {
+      currentRow = 0; currentCol = 0; currentGuess = []; gameOver = false;
+      wordLen = targetWord.length;
+      document.getElementById('wordle-msg').textContent = '';
+      document.getElementById('wordle-msg').style.color = 'var(--crimson)';
+      buildGrid(); buildKeyboard();
+    }
+
+    document.addEventListener('keydown', e => {
+      const k = e.key.toUpperCase();
+      if (k === 'BACKSPACE') handleKey('Backspace');
+      else if (k === 'ENTER') handleKey('Enter');
+      else if (/^[A-Z]$/.test(k)) handleKey(k);
+    });
+
+    restartGame();
+  </script>
+</section>
+
+
+
+<section id="debate">
+  <div class="container">
+    <span class="section-label">Overall Scope & Context</span>
+    <h2 class="section-title reveal">Two Sides of<br/>the Same Empire</h2>
+    <div class="divider"></div>
+    <p class="reveal" style="color:var(--body-text); max-width:700px; margin-bottom:0;">Empire was never a settled question. These writers argued in real time about power, race, civilization, and who gets to be educated. The debate still isn't over.</p>
+    <div class="debate-container">
+      <div class="side side-empire reveal">
+        <span class="side-label">The Case For Empire</span>
+        <div class="side-title">Civilization, Duty & Glory</div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Empire as moral mission, bringing "superior" knowledge to colonized peoples (Macaulay)</div></div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">National strength and economic necessity justify expansion (Chamberlain)</div></div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Patriotic sacrifice framed as natural and noble through poetry (Tennyson, Newbolt)</div></div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Schools and sports build the "character" needed to govern the world (Hughes, Newbolt)</div></div>
+        <div class="debate-writers">Macaulay · Chamberlain · Froude · Tennyson · Newbolt · Henley</div>
+      </div>
+      <div class="side side-resist reveal">
+        <span class="side-label">The Case Against</span>
+        <div class="side-title">Exploitation, Resistance & Cost</div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Empire is economically motivated by capitalist elites, not national good (Hobson)</div></div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Racial "inferiority" is invented to justify colonial power, not observed (Thomas)</div></div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Colonized peoples observe the empire's self-image versus its reality (Mukharji)</div></div>
+        <div class="argument-item"><div class="arg-dot"></div><div class="arg-text">Rigid education systems reproduce class inequality and suppress imagination (Dickens, Hardy)</div></div>
+        <div class="debate-writers">Thomas · Hobson · Irish Fenians · Mukharji · Dickens · Carroll · Hardy · Cobbe</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECTIONS -->
+<section id="connections">
+  <div class="container">
+    <span class="section-label">Associated Works</span>
+    <h2 class="section-title reveal">Beyond the Readings</h2>
+    <div class="divider"></div>
+    <p class="reveal" style="color:var(--body-text); max-width:640px;">These readings connect to films, novels, and visual culture, extending the conversation well beyond the 19th century.</p>
+    <div class="connections-grid">
+      <div class="connection-item reveal"><span class="connection-icon">🎬</span><div class="connection-title">Gandhi (1982)</div><div class="connection-rel">Shows Indian resistance to British rule, connects to Mukharji's colonial perspective and Hobson's critique of empire as unjust and exploitative</div></div>
+      <div class="connection-item reveal"><span class="connection-icon">🎬</span><div class="connection-title">The Man Who Would Be King (1975)</div><div class="connection-rel">Depicts British adventurers driven by ambition and expansion, mirrors the imperial mindset behind Tennyson's pride and Chamberlain's defense of empire</div></div>
+      <div class="connection-item reveal"><span class="connection-icon">📚</span><div class="connection-title">Heart of Darkness, Conrad</div><div class="connection-rel">Reveals violence and moral corruption within imperialism, aligns closely with Hobson's argument that empire is driven by power and exploitation rather than duty</div></div>
+      <div class="connection-item reveal"><span class="connection-icon">📜</span><div class="connection-title">The White Man's Burden, Kipling</div><div class="connection-rel">Promotes imperialism as a moral responsibility, reflects the same tone and ideology found in Tennyson's ceremonial praise and Chamberlain's political justification</div></div>
+      <div class="connection-item reveal"><span class="connection-icon">🎵</span><div class="connection-title">Pomp and Circumstance, Elgar</div><div class="connection-rel">Expresses national pride and imperial unity through music, parallels the celebratory tone of Tennyson and the disciplined patriotism in Newbolt</div></div>
+      <div class="connection-item reveal"><span class="connection-icon">🖼️</span><div class="connection-title">The Slave Market, Leighton</div><div class="connection-rel">Shows Victorian fascination with foreign cultures and power imbalance, connects to Arnold's cultural comparisons and the tensions challenged by John Jacob Thomas</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TAKEAWAYS -->
+<section id="takeaways" style="background: var(--navy-deep);">
+  <div class="container">
+    <span class="section-label" style="background: rgba(155,28,46,0.25); color: #e07080;">Conclusion</span>
+    <h2 class="section-title reveal" style="color: var(--parchment);">Key Takeaways</h2>
+    <div class="divider" style="background: linear-gradient(90deg, var(--crimson), var(--navy-light));"></div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.2rem; margin-top: 1rem;">
+      <div class="reveal" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(245,230,200,0.12); border-radius: 4px; padding: 1.6rem 1.4rem;">
+        <div style="font-size: 1.6rem; margin-bottom: 0.7rem;">🖊️</div>
+        <div style="font-family: 'Playfair Display', serif; font-weight: 700; color: var(--parchment); margin-bottom: 0.5rem; font-size: 0.95rem;">Language as Power</div>
+        <p style="color: var(--smoke); font-size: 0.85rem; line-height: 1.6;">Empire relied on language to justify power, not force alone. Writers and politicians shaped how colonialism was understood and accepted.</p>
+      </div>
+      <div class="reveal" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(245,230,200,0.12); border-radius: 4px; padding: 1.6rem 1.4rem;">
+        <div style="font-size: 1.6rem; margin-bottom: 0.7rem;">🏛️</div>
+        <div style="font-family: 'Playfair Display', serif; font-weight: 700; color: var(--parchment); margin-bottom: 0.5rem; font-size: 0.95rem;">Empire as Duty</div>
+        <p style="color: var(--smoke); font-size: 0.85rem; line-height: 1.6;">Writers like Macaulay and Chamberlain framed imperial expansion not as conquest, but as a moral responsibility and civilizing mission.</p>
+      </div>
+      <div class="reveal" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(245,230,200,0.12); border-radius: 4px; padding: 1.6rem 1.4rem;">
+        <div style="font-size: 1.6rem; margin-bottom: 0.7rem;">✊</div>
+        <div style="font-family: 'Playfair Display', serif; font-weight: 700; color: var(--parchment); margin-bottom: 0.5rem; font-size: 0.95rem;">Resistance & Contradiction</div>
+        <p style="color: var(--smoke); font-size: 0.85rem; line-height: 1.6;">Critics like Hobson and Thomas exposed the contradictions at empire's core, showing that its claims of freedom and duty rarely matched reality.</p>
+      </div>
+      <div class="reveal" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(245,230,200,0.12); border-radius: 4px; padding: 1.6rem 1.4rem;">
+        <div style="font-size: 1.6rem; margin-bottom: 0.7rem;">👁️</div>
+        <div style="font-family: 'Playfair Display', serif; font-weight: 700; color: var(--parchment); margin-bottom: 0.5rem; font-size: 0.95rem;">Perspective Shapes Truth</div>
+        <p style="color: var(--smoke); font-size: 0.85rem; line-height: 1.6;">Tennyson and Mukharji describe the same empire, the same exhibition even, yet see completely different realities. Whose voice gets heard matters.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDITS -->
+<section id="credits">
+  <div class="container">
+    <span class="section-label">References & Credits</span>
+    <h2 class="section-title reveal">Works Cited</h2>
+    <div class="divider"></div>
+    <div class="credits-single reveal">
+      <h3>Primary Source</h3>
+      <div class="credits-entry">
+        <span class="author">Greenblatt, Stephen.</span> <em>The Norton Anthology of English Literature. Volume E, The Victorian Age.</em> 10th edition / Stephen Greenblatt, general editor. W.W. Norton and Company, 2018.
+      </div>
+    </div>
+    <div class="footer-bottom">Empire, Education, and the Making of Victorian Power &nbsp;·&nbsp; Module 2 &nbsp;·&nbsp; 2026</div>
+  </div>
+</section>
+
+<script>
+  function filterWriters(cat, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.writer-card').forEach(card => {
+      card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+    });
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
